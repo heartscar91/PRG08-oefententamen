@@ -1,6 +1,5 @@
 class UI {
     
-    private coins       : number        = 0;
     public  life        : number        = 100;
 
     private coindiv     : HTMLElement;
@@ -11,7 +10,7 @@ class UI {
 
     constructor(game : Game) {
         this.coindiv = <HTMLElement> document.getElementsByTagName("counter")[0];
-        this.coindiv.innerHTML = this.coins.toString();
+        this.coindiv.innerHTML = "100";
 
         this.lifediv = <HTMLElement> document.querySelector("lifebar progressbar");
         this.lifediv.style.width = this.life + "%";
@@ -20,11 +19,6 @@ class UI {
 
         this.btnBullets  = new Button("bulletbutton");
         this.btnUpgrade  = new TowerButton(game);
-    }
-
-    public addCoins(amount : number) : void {
-        this.coins += amount;
-        this.coindiv.innerHTML = this.coins.toString();
     }
 
     public decreaseLife(amount : number) : void {

@@ -163,19 +163,14 @@ class Tower extends GameObject {
 }
 class UI {
     constructor(game) {
-        this.coins = 0;
         this.life = 100;
         this.coindiv = document.getElementsByTagName("counter")[0];
-        this.coindiv.innerHTML = this.coins.toString();
+        this.coindiv.innerHTML = "100";
         this.lifediv = document.querySelector("lifebar progressbar");
         this.lifediv.style.width = this.life + "%";
         this.lifediv.classList.add("blinking");
         this.btnBullets = new Button("bulletbutton");
         this.btnUpgrade = new TowerButton(game);
-    }
-    addCoins(amount) {
-        this.coins += amount;
-        this.coindiv.innerHTML = this.coins.toString();
     }
     decreaseLife(amount) {
         this.life -= amount;
@@ -232,11 +227,9 @@ class TowerButton extends Button {
     handleClick(event) {
         this.progress += 10;
         this.bar.style.width = this.progress + "%";
-        this.game.ui.addCoins(-100);
         if (this.progress > 90) {
             this.progress = 0;
             super.handleClick(event);
-            this.game.ui.addCoins(-1000);
             this.upgrade();
         }
     }

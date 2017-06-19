@@ -15,12 +15,10 @@ class TowerButton extends Button {
         
         this.progress+=10;
         this.bar.style.width = this.progress+"%";
-        this.game.ui.addCoins(-100);
 
         if(this.progress > 90){
             this.progress = 0;
             super.handleClick(event);
-            this.game.ui.addCoins(-1000);
             this.upgrade();
         }
     }
