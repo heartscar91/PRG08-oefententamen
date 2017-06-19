@@ -1,4 +1,4 @@
-# PRG08 Tentamen
+# PRG08 Oefentoets
 
 ## Tower Defense
 
