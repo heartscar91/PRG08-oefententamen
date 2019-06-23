@@ -3,27 +3,27 @@
  */
 class GameObject {
     //Fields
-    private _x      : number = 0;
-    private _y      : number = 0;
-    private _width  : number = 0;
-    private _height : number = 0;
-    private _div    : HTMLElement;
+    private x      : number = 0;
+    private y      : number = 0;
+    private width  : number = 0;
+    private height : number = 0;
+    private div    : HTMLElement;
     
     //Properties
-    public get x(): number          { return this._x;       }
-    public set x(value: number)     { this._x = value;      }
+    public get X(): number          { return this.x;       }
+    public set X(value: number)     { this.x = value;      }
 
-    public get y(): number          { return this._y;       }
-    public set y(value: number)     { this._y = value;      }
+    public get Y(): number          { return this.y;       }
+    public set Y(value: number)     { this.y = value;      }
 
-    public get width() : number     { return this._width;   }
-    public set width(v : number)    { this._width = v;      }
+    public get Width() : number     { return this.width;   }
+    public set Width(v : number)    { this.width = v;      }
     
-    public get height() : number    { return this._height;  }
-    public set height(v : number)   { this._height = v;     }
+    public get Height() : number    { return this.height;  }
+    public set Height(v : number)   { this.height = v;     }
 
-    public get div() : HTMLElement  { return this._div;     }
-    public set div(v : HTMLElement) { this._div = v;        }
+    public get Div() : HTMLElement  { return this.div;     }
+    public set Div(v : HTMLElement) { this.div = v;        }
 
     /**
      * Basic game object
@@ -33,16 +33,16 @@ class GameObject {
      * @param parent parent object to append to
      */
     constructor(x: number, y: number, tag: string) {
-        this._x      = x;
-        this._y      = y;
+        this.x      = x;
+        this.y      = y;
 
         let parent:HTMLElement = <HTMLElement> document.getElementsByTagName("game")[0];
 
-        this._div    = document.createElement(tag);
-        parent.appendChild(this._div);
+        this.div    = document.createElement(tag);
+        parent.appendChild(this.div);
 
-        this._width  = this._div.clientWidth;
-        this._height = this._div.clientHeight;
+        this.width  = this.div.clientWidth;
+        this.height = this.div.clientHeight;
 
         this.draw();
     }
@@ -58,7 +58,7 @@ class GameObject {
      * Draw function to override by child
      */
     public draw() : void {
-        this._div.style.transform = `translate(${this._x}px, ${this._y}px)`;
+        this.div.style.transform = `translate(${this.x}px, ${this.y}px)`;
     }
 
     public hasCollision(obj : GameObject) : boolean {

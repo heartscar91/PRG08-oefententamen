@@ -18,14 +18,14 @@ class Zombie extends GameObject {
     }
 
     public update(){
-        this.x -= this.xspeed;
-        this.y -= this.yspeed;
-        if (this.x + this.width < 0) {
+        this.X -= this.xspeed;
+        this.Y -= this.yspeed;
+        if (this.X + this.Width < 0) {
             this.remove();
         }
 
-        this.xdist = this.x - this.xtarget;
-        this.ydist = this.y - this.ytarget;
+        this.xdist = this.X - this.xtarget;
+        this.ydist = this.Y - this.ytarget;
 
         if(Math.sqrt(this.xdist * this.xdist + this.ydist * this.ydist) < 10) {
             this.setTarget();
@@ -34,11 +34,11 @@ class Zombie extends GameObject {
 
     private setTarget () {
         // genereer random eindpositie en constante snelheid richting die positie
-        this.xtarget = this.x - 200;
-        this.ytarget = Math.random() * (window.innerHeight - this.y);
+        this.xtarget = this.X - 200;
+        this.ytarget = Math.random() * (window.innerHeight - this.Y);
         // this.ytarget = 100;
 
-        this.setSpeed(this.x - this.xtarget, this.y - this.ytarget);
+        this.setSpeed(this.X - this.xtarget, this.Y - this.ytarget);
     }
 
     private setSpeed(xdist : number, ydist : number) {

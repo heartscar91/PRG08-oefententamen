@@ -3,7 +3,7 @@
 class Tower extends GameObject {
 
     private _bullets        : number = 16;
-    private bulletList      : Array<Bullet> = new Array();
+    private bulletList      : Array<Bullet> = []
     private bulletsDisplay  : HTMLElement;
     private rotation        : number = 0;
     public  game            : Game;
@@ -22,12 +22,12 @@ class Tower extends GameObject {
 
         this.game = g;
         // Alle torens zien eruit als een singleshot-tower
-        this.div.className = "";
-        this.div.classList.add("singleshot-tower");
+        this.Div.className = "";
+        this.Div.classList.add("singleshot-tower");
 
         // Om aantal kogels weer te geven
         this.bulletsDisplay = document.createElement("div");
-        this.div.appendChild(this.bulletsDisplay);
+        this.Div.appendChild(this.bulletsDisplay);
         this.bulletsDisplay.style.fontSize = "14px";
 
         this.displayBullets();
@@ -49,8 +49,8 @@ class Tower extends GameObject {
     public fireSingle(): void {
         if (this.bullets > 0) {
             this.bulletList.push(new Bullet(
-                                 this.x + 48, 
-                                 this.y + 60, this.rotation,
+                                 this.Y + 48, 
+                                 this.Y + 60, this.rotation,
                                  "bullet-red"));
             this.bullets--;
             this.turn45Degrees();
@@ -63,8 +63,8 @@ class Tower extends GameObject {
     public fireMulti(): void {
         while(this.rotation != 360 && this.bullets > 0) {
             this.bulletList.push(new Bullet(
-                                 this.x + 40, 
-                                 this.y + 60, this.rotation,
+                                 this.X + 40, 
+                                 this.Y + 60, this.rotation,
                                  "bullet-blue"));
             this.bullets--;
             this.rotation += 45;

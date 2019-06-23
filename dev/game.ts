@@ -2,19 +2,19 @@ class Game {
 
     // Fields
     public  ui              : UI;
-    private pause           : boolean = false;
-    private zombiecounter   : number = 0;
-    private towers          : Array<Tower> = new Array();
-    private zombies         : Array<Zombie> = new Array();
+    private pause           : boolean       = false;
+    private zombiecounter   : number        = 0;
+    private towers          : Array<Tower>  = []
+    private zombies         : Array<Zombie> = []
 
     constructor() {
         this.ui = new UI(this);
             
-        let basicTower : Tower = new Tower(200, 200, this);
-        this.towers.push(basicTower);
+        let basicTower      : Tower = new Tower(200, 200, this);
         let singleShotTower : Tower = new Tower(320, 60, this);        
+        let multiShotTower  : Tower = new Tower(600, 240, this);
+        this.towers.push(basicTower);
         this.towers.push(singleShotTower);
-        let multiShotTower : Tower = new Tower(600, 240, this);
         this.towers.push(multiShotTower);
 
         requestAnimationFrame(() => this.gameLoop());

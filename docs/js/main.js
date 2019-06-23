@@ -1,32 +1,32 @@
 class GameObject {
     constructor(x, y, tag) {
-        this._x = 0;
-        this._y = 0;
-        this._width = 0;
-        this._height = 0;
-        this._x = x;
-        this._y = y;
+        this.x = 0;
+        this.y = 0;
+        this.width = 0;
+        this.height = 0;
+        this.x = x;
+        this.y = y;
         let parent = document.getElementsByTagName("game")[0];
-        this._div = document.createElement(tag);
-        parent.appendChild(this._div);
-        this._width = this._div.clientWidth;
-        this._height = this._div.clientHeight;
+        this.div = document.createElement(tag);
+        parent.appendChild(this.div);
+        this.width = this.div.clientWidth;
+        this.height = this.div.clientHeight;
         this.draw();
     }
-    get x() { return this._x; }
-    set x(value) { this._x = value; }
-    get y() { return this._y; }
-    set y(value) { this._y = value; }
-    get width() { return this._width; }
-    set width(v) { this._width = v; }
-    get height() { return this._height; }
-    set height(v) { this._height = v; }
-    get div() { return this._div; }
-    set div(v) { this._div = v; }
+    get X() { return this.x; }
+    set X(value) { this.x = value; }
+    get Y() { return this.y; }
+    set Y(value) { this.y = value; }
+    get Width() { return this.width; }
+    set Width(v) { this.width = v; }
+    get Height() { return this.height; }
+    set Height(v) { this.height = v; }
+    get Div() { return this.div; }
+    set Div(v) { this.div = v; }
     update() {
     }
     draw() {
-        this._div.style.transform = `translate(${this._x}px, ${this._y}px)`;
+        this.div.style.transform = `translate(${this.x}px, ${this.y}px)`;
     }
     hasCollision(obj) {
         return (this.x < obj.x + obj.width &&
@@ -47,31 +47,31 @@ class Bullet extends GameObject {
         this.speedY = this.speed * Math.sin(rotation / 180 * Math.PI);
     }
     update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
+        this.X += this.speedX;
+        this.Y += this.speedY;
         if (this.isOutsideWindow()) {
             this.remove();
         }
     }
     isOutsideWindow() {
-        return (this.x > window.innerWidth ||
-            this.x + this.width < 0 ||
-            this.y > window.innerHeight ||
-            this.y + this.height < 0);
+        return (this.X > window.innerWidth ||
+            this.X + this.Width < 0 ||
+            this.Y > window.innerHeight ||
+            this.Y + this.Height < 0);
     }
 }
 class Game {
     constructor() {
         this.pause = false;
         this.zombiecounter = 0;
-        this.towers = new Array();
-        this.zombies = new Array();
+        this.towers = [];
+        this.zombies = [];
         this.ui = new UI(this);
         let basicTower = new Tower(200, 200, this);
-        this.towers.push(basicTower);
         let singleShotTower = new Tower(320, 60, this);
-        this.towers.push(singleShotTower);
         let multiShotTower = new Tower(600, 240, this);
+        this.towers.push(basicTower);
+        this.towers.push(singleShotTower);
         this.towers.push(multiShotTower);
         requestAnimationFrame(() => this.gameLoop());
     }
@@ -102,7 +102,7 @@ class Game {
 class GameOver extends GameObject {
     constructor() {
         super(window.innerWidth / 2 - 50, window.innerHeight / 2 - 25, "gameover");
-        this.div.innerHTML = "GAME OVER";
+        this.Div.innerHTML = "GAME OVER";
     }
 }
 window.addEventListener("load", function () {
@@ -112,13 +112,13 @@ class Tower extends GameObject {
     constructor(x, y, g) {
         super(x, y, "tower");
         this._bullets = 16;
-        this.bulletList = new Array();
+        this.bulletList = [];
         this.rotation = 0;
         this.game = g;
-        this.div.className = "";
-        this.div.classList.add("singleshot-tower");
+        this.Div.className = "";
+        this.Div.classList.add("singleshot-tower");
         this.bulletsDisplay = document.createElement("div");
-        this.div.appendChild(this.bulletsDisplay);
+        this.Div.appendChild(this.bulletsDisplay);
         this.bulletsDisplay.style.fontSize = "14px";
         this.displayBullets();
         setInterval(() => this.fireSingle(), 900);
@@ -139,14 +139,14 @@ class Tower extends GameObject {
     }
     fireSingle() {
         if (this.bullets > 0) {
-            this.bulletList.push(new Bullet(this.x + 48, this.y + 60, this.rotation, "bullet-red"));
+            this.bulletList.push(new Bullet(this.Y + 48, this.Y + 60, this.rotation, "bullet-red"));
             this.bullets--;
             this.turn45Degrees();
         }
     }
     fireMulti() {
         while (this.rotation != 360 && this.bullets > 0) {
-            this.bulletList.push(new Bullet(this.x + 40, this.y + 60, this.rotation, "bullet-blue"));
+            this.bulletList.push(new Bullet(this.X + 40, this.Y + 60, this.rotation, "bullet-blue"));
             this.bullets--;
             this.rotation += 45;
         }
@@ -184,21 +184,21 @@ class Zombie extends GameObject {
         this.setTarget();
     }
     update() {
-        this.x -= this.xspeed;
-        this.y -= this.yspeed;
-        if (this.x + this.width < 0) {
+        this.X -= this.xspeed;
+        this.Y -= this.yspeed;
+        if (this.X + this.Width < 0) {
             this.remove();
         }
-        this.xdist = this.x - this.xtarget;
-        this.ydist = this.y - this.ytarget;
+        this.xdist = this.X - this.xtarget;
+        this.ydist = this.Y - this.ytarget;
         if (Math.sqrt(this.xdist * this.xdist + this.ydist * this.ydist) < 10) {
             this.setTarget();
         }
     }
     setTarget() {
-        this.xtarget = this.x - 200;
-        this.ytarget = Math.random() * (window.innerHeight - this.y);
-        this.setSpeed(this.x - this.xtarget, this.y - this.ytarget);
+        this.xtarget = this.X - 200;
+        this.ytarget = Math.random() * (window.innerHeight - this.Y);
+        this.setSpeed(this.X - this.xtarget, this.Y - this.ytarget);
     }
     setSpeed(xdist, ydist) {
         let distance = Math.sqrt(xdist * xdist + ydist * ydist);
