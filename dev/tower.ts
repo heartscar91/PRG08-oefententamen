@@ -1,12 +1,31 @@
-/// <reference path="gameobject.ts" />
-
-class Tower extends GameObject {
+class Tower {
 
     private _bullets        : number = 16;
     private bulletList      : Array<Bullet> = []
     private bulletsDisplay  : HTMLElement;
     private rotation        : number = 0;
     public  game            : Game;
+    private x: number = 0;
+    private y: number = 0;
+    private width: number = 0;
+    private height: number = 0;
+    private div: HTMLElement;
+
+    //Properties
+    public get X(): number { return this.x; }
+    public set X(value: number) { this.x = value; }
+
+    public get Y(): number { return this.y; }
+    public set Y(value: number) { this.y = value; }
+
+    public get Width(): number { return this.width; }
+    public set Width(v: number) { this.width = v; }
+
+    public get Height(): number { return this.height; }
+    public set Height(v: number) { this.height = v; }
+
+    public get Div(): HTMLElement { return this.div; }
+    public set Div(v: HTMLElement) { this.div = v; }
 
 	public get bullets(): number  {
 		return this._bullets;
@@ -18,7 +37,16 @@ class Tower extends GameObject {
 	}
 
     constructor(x:number, y:number, g:Game) {
-        super(x, y, "tower");
+        this.x = x;
+        this.y = y;
+
+        let parent: HTMLElement = <HTMLElement>document.getElementsByTagName("game")[0];
+
+        this.div = document.createElement("tower");
+        parent.appendChild(this.div);
+
+        this.width = this.div.clientWidth;
+        this.height = this.div.clientHeight;
 
         this.game = g;
         // Alle torens zien eruit als een singleshot-tower
@@ -34,6 +62,8 @@ class Tower extends GameObject {
         
         setInterval(() => this.fireSingle(), 900);
         setInterval(() => this.fireMulti(), 1900);
+    
+        this.draw();
     }
 
     public update() {
@@ -80,5 +110,21 @@ class Tower extends GameObject {
 
     private displayBullets() : void {
         this.bulletsDisplay.innerHTML = this._bullets + "";
+    }
+
+    public draw(): void {
+        this.div.style.transform = `translate(${this.x}px, ${this.y}px)`;
+    }
+
+    public hasCollision(obj: Tower): boolean {
+        return (this.x < obj.x + obj.width &&
+            this.x + this.width > obj.x &&
+            this.y < obj.y + obj.height &&
+            this.y + this.height > obj.y);
+    }
+
+    public remove() {
+        
+
     }
 }

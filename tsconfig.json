@@ -1,12 +1,16 @@
 {
     "compilerOptions": {
-        "sourceMap":  true,
+        "strict": true,
+        "target": "es6",
         "removeComments": true,
-        "target":"es6",
-        "out": "docs/js/main.js"
+        "noUnusedLocals": false,
+        "noUnusedParameters": false,
+        "allowUnusedLabels": true,
+        "strictPropertyInitialization": false,
+        "sourceMap": true,
+        "outFile": "docs/js/main.js"
     },
-    "exclude": [
-        "node_modules",
-        "docs"
+    "include": [
+        "dev/**/*"
     ]
 }
