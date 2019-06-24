@@ -6,7 +6,7 @@ class UI {
     private lifediv     : HTMLElement;
 
     public  btnBullets  : Button;
-    public  btnUpgrade  : Button;
+    public  btnUpgrade  : TowerButton;
 
     constructor(game : Game) {
         this.coindiv = <HTMLElement> document.getElementsByTagName("counter")[0];
