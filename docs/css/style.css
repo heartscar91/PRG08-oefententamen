@@ -77,7 +77,6 @@ bulletbutton {
     right:20px; bottom:110px;
     width:128px; height:70px;
     cursor:pointer;
-    border:2px solid red;
     border-radius:7px;
     background-image: url('../images/button_bullet.png');
 }
