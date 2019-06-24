@@ -41,7 +41,7 @@ class Game {
         }
 
         if (!this.pause) { 
-            requestAnimationFrame(() => this.gameLoop())
+           // requestAnimationFrame(() => this.gameLoop())
         } 
     }
 

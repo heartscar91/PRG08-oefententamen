@@ -54,6 +54,16 @@ class Bullet {
     remove() {
     }
 }
+class Button {
+    constructor(tag) {
+        this.pause = false;
+        this.div = document.getElementsByTagName(tag)[0];
+        this.div.addEventListener("click", (e) => this.handleClick(e));
+    }
+    handleClick(event) {
+        alert(this.div.tagName);
+    }
+}
 class Game {
     constructor() {
         this.pause = false;
@@ -86,7 +96,6 @@ class Game {
             zombie.draw();
         }
         if (!this.pause) {
-            requestAnimationFrame(() => this.gameLoop());
         }
     }
     gameOver() {
